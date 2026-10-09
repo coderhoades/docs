@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "name": "Tuck",
+  "name": "tuck-docs",
   "theme": "almond",
   "colors": {
     "primary": "#173e32",
