@@ -1,0 +1,130 @@
+{
+  "projectType": "saas",
+  "projectName": "Tuck",
+  "projectDescription": "Tuck is a local-first, end-to-end encrypted thought-capture app that lets you quickly save ideas via web, email, or mobile, then organize them with tags, brains, and reminders.",
+  "theme": "almond",
+  "primaryColor": "#173e32",
+  "lightColor": "#ce734f",
+  "darkColor": "#faf9ea",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Getting Started",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "introduction",
+              "how-tuck-works",
+              "key-concepts"
+            ]
+          },
+          {
+            "group": "Setup",
+            "pages": [
+              "getting-started/create-account",
+              "getting-started/vault-passphrase",
+              "getting-started/recovery-kit"
+            ]
+          },
+          {
+            "group": "Capturing Thoughts",
+            "pages": [
+              "capture/quick-capture",
+              "capture/email-capture",
+              "capture/mobile-capture"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Features",
+        "groups": [
+          {
+            "group": "Organization",
+            "pages": [
+              "features/tags",
+              "features/brains",
+              "features/editor"
+            ]
+          },
+          {
+            "group": "Reminders & Sharing",
+            "pages": [
+              "features/reminders",
+              "features/share-links"
+            ]
+          },
+          {
+            "group": "Sync & Devices",
+            "pages": [
+              "features/sync",
+              "features/ios-app"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Security",
+        "groups": [
+          {
+            "group": "Your Vault",
+            "pages": [
+              "security/overview",
+              "security/three-secrets",
+              "security/encryption-model"
+            ]
+          },
+          {
+            "group": "Account Management",
+            "pages": [
+              "security/managing-your-passphrase",
+              "security/recovery-kit",
+              "security/architecture"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Help",
+        "groups": [
+          {
+            "group": "Troubleshooting",
+            "pages": [
+              "help/faq",
+              "help/lost-passphrase",
+              "help/account-issues"
+            ]
+          },
+          {
+            "group": "Plans & Access",
+            "pages": [
+              "help/invite-codes",
+              "help/plans"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Frictionless quick-capture — no folders required before saving a thought",
+    "End-to-end encrypted vault using AES-256-GCM with dual-wrap DEK",
+    "Email capture via a personal send-to address (you@sendto.tuckthis.app)",
+    "Tags and Brains for post-capture organization",
+    "Full rich-text editor for expanding on captured thoughts",
+    "Reminders that fire even when no browser tab is open",
+    "Opt-in share links — publish a single tuck as a readable URL",
+    "Cross-device sync over ciphertext (never plaintext)",
+    "Native iOS/iPadOS app with Face ID and share-sheet capture",
+    "Local-first architecture — vault passphrase never leaves the device"
+  ],
+  "publicApiSurface": [
+    "Email capture: you@sendto.tuckthis.app inbound address",
+    "Share link: published snapshot URL for a single tuck",
+    "Vault unlock: passphrase-based PBKDF2 key derivation (client-side only)",
+    "Recovery kit: second AES-256-GCM wrap of the DEK for disaster recovery",
+    "iOS share sheet: pending capture write path",
+    "iOS widgets: pending capture write path"
+  ]
+}

@@ -1,0 +1,85 @@
+---
+title: "Tuck documentation and terminology style guide"
+sidebarTitle: "Style guide"
+description: "The rules for how Tuck talks about itself, its features, and its users."
+---
+
+This guide is opinionated on purpose. Consistent language makes Tuck easier to learn.
+
+## Voice
+
+Write like a calm, capable person helping someone finish a task.
+
+- Prefer short sentences.
+- Lead with what the person is trying to do.
+- Explain technical detail only when it helps a decision or builds trust.
+- Use contractions when they sound natural.
+- Do not sound like marketing copy inside support docs.
+- Avoid saying something is “simple,” “easy,” or “obvious.” Show the steps instead.
+
+## Product vocabulary
+
+| Use | Meaning | Avoid |
+| --- | --- | --- |
+| **Tuck it** | The save action | Save note, submit tuck |
+| **thought** | Default noun for saved user content | Tuck as the default noun everywhere |
+| **tuck** | Acceptable when product context benefits from it | Overusing it as a branded noun |
+| **brain** | A durable collection or home for thoughts | Folder, workspace |
+| **Inbox** | The default brain | Unsorted folder |
+| **tag** | Inline `#tag` | Label unless discussing UI labels |
+| **person** / **People** | A reusable contact/context record | Contact object |
+| **todo** | Trackable work | Task when referring to the Tuck object |
+| **reminder** | Something Tuck brings back at a time | Notification when discussing the user intent |
+| **vault passphrase** | Secret used to unlock the vault | Password |
+| **Recovery Kit** | Recovery secret and artifact | Backup password, recovery password |
+| **account sign-in** | Access to the Tuck account | Unlock when we mean authentication |
+| **lock** | Remove local access to the unlocked vault key | Log out |
+
+## Capitalization
+
+Capitalize branded UI names such as **Inbox**, **People**, **Recovery Kit**, **Quick Tuck**, and **Tuck it** when referring to the visible product term.
+
+Use lowercase for generic concepts such as thought, brain, tag, todo, reminder, and vault unless the word starts a sentence.
+
+## Distinguish sign-in from unlock
+
+This is one of the most important language rules in Tuck.
+
+- You **sign in** to your Tuck account with a passkey or email link.
+- You **unlock** your vault with a vault passphrase, Recovery Kit, or an approved device-unlock method such as Face ID.
+
+Never call the vault passphrase an account password.
+
+## Describe privacy precisely
+
+Do not say “Tuck can never see anything” because some features intentionally require plaintext metadata or a plaintext boundary crossing.
+
+Prefer precise statements such as:
+
+- “Thought bodies are encrypted before they sync.”
+- “A share link is a plaintext snapshot you chose to publish.”
+- “Reminder timing and destination stay readable so Tuck can deliver the reminder while your devices are offline.”
+
+## Write task-oriented titles
+
+Prefer **Capture by email** over **Email ingest architecture** for user docs.
+
+Use implementation-oriented titles only in Reference or developer documentation.
+
+## UI instructions
+
+Use the visible label in bold: **Settings**, **Share**, **Lock**.
+
+Use arrows for a short menu path: **Settings → Ingest**.
+
+Do not invent labels that are not in the product.
+
+## Examples
+
+Good: “Type `#` to add a tag while you capture.”
+
+Less useful: “Tags may be applied through the metadata autocomplete subsystem.”
+
+Good: “If you forgot your vault passphrase, use your Recovery Kit.”
+
+Wrong: “Reset your Tuck password.”

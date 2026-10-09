@@ -1,0 +1,126 @@
+---
+title: "Tuck release notes"
+sidebarTitle: "All release notes"
+description: "What’s new across Tuck apps, extensions, and upcoming clients."
+rss: true
+---
+
+Follow what is changing across Tuck. Use the filters to focus on the client you use or to follow alpha and beta work for clients that are still on the way.
+
+<Update label="October 9, 2026" tags={["Browser extensions"]} description="0.1.6: a date picker that stays with your clip">
+  ## Pick a date. Keep your place.
+
+  **Chrome Web Store · 0.1.6**
+
+  Choose a date for your clip without the calendar wandering outside the popup. The calendar now stays inside, with month arrows, **Today**, and **Clear** all within reach. This fixes the Vivaldi issue where clicking a day outside the popup closed it instead.
+
+  Choosing Tuesday should not mean starting over.
+
+  The **Brain** menu also lines up with the other capture fields. A small adjustment for a popup with a lot to fit in.
+
+  Version **0.1.6** is now available from the [Chrome Web Store](https://chromewebstore.google.com/detail/tuck/aoilpgipnmdcphndjkhfeoldjgclnbii). This announcement covers that store release; it does not announce a Firefox or Safari update.
+
+  Page-title naming was already available through the web app, as noted on October 5.
+
+  [See how to clip a page](/apps/browser-extension).
+</Update>
+
+<Update label="October 8, 2026" tags={["Web"]} description="2026.10.08.1: Habits, flexible repeats, and a tidier daily view">
+  ## A little more room for your routines
+
+  **Web app · 2026.10.08.1**
+
+  Turn on **Habits** in **Settings → General** when you want a rhythm and a completion log. Pick a schedule, add an optional note when you complete it, and keep those thoughts on the habit instead of in Everything. Habits are available on every plan. Their reminders are in-app only for now.
+
+  [Get started with Habits](/use/habits).
+
+  ### Todos that fit your week
+
+  - Repeat on specific weekdays, every few days, weeks, or months, or with a custom schedule.
+  - Type `#tags` in a todo name to attach them. Editing the name keeps the tag links in step.
+  - Linked todos follow their thought's brain. When deleting a thought, choose whether to delete its linked todos or keep them on their own.
+  - The thought composer on Todos now waits behind **Need to Tuck something away?** Your keyboard shortcut still opens it, and hiding it keeps your draft.
+
+  [See how todos work](/use/todos).
+
+  ### Your board, your people
+
+  Choose which brains appear in Kanban and drag their handles to reorder them. Hiding a column leaves the brain and its thoughts intact. This layout stays on the current device.
+
+  Connect an address book through **CardDAV** in **Settings → Calendars & mail** to bring contacts into People. You can also turn off **Add people from email** if mail addresses are making your People list too busy. Meeting invitees can still be added.
+
+  ### Text it in, wherever your day takes you
+
+  SMS capture now accepts UK numbers and the other countries listed under [Text in, reminders by email](/capture/sms-countries#text-in-reminders-by-email). You can text thoughts to Tuck, and your reminders arrive at your account email. Verification codes and replies to STOP, START, and HELP still use text.
+
+  For `+1` numbers, if our messaging provider rejects a send and your account has an email address, Tuck emails the same message instead, including verification codes. This fallback applies to a rejected send, not every text that fails to arrive.
+
+  SMS remains included on Pro, Tucker, and Founder, with 200 segments per month shared by inbound captures and outbound reminders.
+
+  ### Small fixes you will notice
+
+  - Rename a thought directly on a list card with a gray preview. Compact cards still open the thought when you click the title.
+  - Use a thought card's brain chip to open that brain or move the thought.
+  - Linked items in Briefing and related lists are easier to spot. Themes have a separate **Links** color.
+  - Briefing keeps its wider layout when your thought feed uses Stream.
+  - Pocket imports now find action items that were being missed. Keep them as proposals, accept them as todos, or turn todo syncing off. You can also choose to attach audio files under 8 MB.
+  - Pocket checks for new recordings while Tuck is unlocked and opens the recording directly from its link. Imports clean up unsupported chart and color markup in summaries. Larger history imports can resume after rate limiting, and recordings sort by the conversation date.
+
+  [Connect Pocket](/capture/pocket) or [connect an address book](/use/calendar-mail#connect-an-address-book).
+</Update>
+
+<Update label="October 8, 2026" tags={["iOS/iPadOS"]} description="Alpha development: share-sheet and vault-sync improvements">
+  ## Preparing the next iPhone and iPad alpha
+
+  Alpha work now includes a readable share-sheet note field, a **Tuck it** button with a larger working tap area, visible save errors, and vault sync while the app is active.
+
+  **No new alpha build containing these changes has been distributed yet.** This is a development update, not an App Store or TestFlight availability announcement.
+</Update>
+
+<Update label="October 5, 2026" tags={["Web"]} description="2026.10.05.01 ;  A few more things off your mind">
+  ## A few more things off your mind
+
+  **Web app · 2026.10.05.01**
+
+  ### Pocket, meet Tuck
+
+  Connect your Pocket recordings in **Settings → Integrations → Pocket**. Finished summaries become thoughts, transcripts arrive as attachments, and action items become proposed todos for you to review. The audio stays in Pocket, with a link back when you need it.
+
+  Choose which brain receives recordings, or bring in previously summarized recordings from the last 7, 30, or 90 days; or all of them. Set up your Pocket API key and webhook, then unlock Tuck to bring new recordings into your vault. Available on Pro, Tucker, and Founder plans.
+
+  One less round of copying meeting notes into the place you actually keep meeting notes.
+
+  ### Bring your people with you
+
+  **People → Import vCard** now accepts `.vcf` address books. Tuck matches contacts by email or phone and merges them with existing people. Contacts you've deleted stay deleted, and importing the same address book again tells you when everyone is already saved.
+
+  ### Your calendars have colors now
+
+  Pick a preset or custom color for each calendar account in Settings. Time Map and the Briefing schedule use those colors to show where events came from, with a calendar legend in Time Map and account names when you have multiple calendars connected. Existing calendars get default colors automatically.
+
+  We can't make two meetings at once a good idea. We can make it clearer which calendar is responsible.
+
+  ### A little less friction
+
+  - **Clipped thoughts get better names.** The web app now uses the page title when saving a browser clip, including clips of selected text, instead of naming it after the URL or the first line of the selection.
+  - **Today fits on your phone.** Wide cards keep their spacing on both sides instead of wandering off the right edge. We have reminded them where the screen ends.
+  - **Time Map labels have room to breathe.** Short events now keep their titles clear of rounded corners.
+  - **Integrations won't stay stuck loading when the feature service is unreachable.** Tuck falls back to your account's plan to show available features.
+  - **A small homepage cleanup.** We removed a repeated line about organizing thoughts. Saying it once turned out to be enough.
+</Update>
+
+<Update label="September 29, 2026" tags={["Web","Browser extensions","iOS/iPadOS","macOS","Windows","Android","Apple Watch","WearOS","Raycast","Alfred"]} description="Release notes are now in Tuck Docs">
+  ## A home for every Tuck client
+
+  Tuck release notes now live alongside the docs. Each update is tagged by client, so you can follow changes to the web app and browser extensions as well as alpha and beta work for upcoming apps.
+
+  Future release notes will appear here as features, fixes, and early builds ship.
+</Update>
+
+## About release stages
+
+We may publish notes here before a client is generally available. When an update applies to an alpha, beta, or other early build, the release note will say so directly.
+
+<Info>
+  Want every update? This page has an RSS feed at `/release-notes/rss.xml`.
+</Info>

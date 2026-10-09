@@ -1,0 +1,28 @@
+---
+title: "Send captures with the ingest API"
+sidebarTitle: "Ingest API"
+description: "Post text into the same mailbox used by email and SMS capture."
+---
+
+Tuck's ingest API is intentionally small. It accepts text and routing metadata, then lets an unlocked Tuck device pull the item into the encrypted vault.
+
+## Endpoint
+
+Send a request to the ingest service's `/v1/messages` endpoint with your ingest token.
+
+```bash
+curl -X POST https://in.tuckthis.app/v1/messages \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"text":"call Chesley at 2pm tomorrow","channel":"api"}'
+```
+
+## What the API is for
+
+Use it for lightweight automations that need to **capture text into Tuck**.
+
+It is not a general-purpose API for reading or editing the rest of an unlocked vault.
+
+## Attachments
+
+The ingest API is text-only in the current architecture. Attachment bytes need to be encrypted on a Tuck client.

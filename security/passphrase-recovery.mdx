@@ -1,0 +1,21 @@
+---
+title: "Vault passphrase and Recovery Kit"
+sidebarTitle: "Passphrase & Recovery"
+description: "Know the two ways to unlock the same vault key."
+---
+
+Your **vault passphrase** and **Recovery Kit** are independent ways to unlock the same vault key.
+
+## Vault passphrase
+
+Use the passphrase for normal unlocking. Tuck stretches it with PBKDF2 before using it to unwrap the vault key.
+
+It is separate from account sign-in.
+
+## Recovery Kit
+
+Your Recovery Kit is created when the vault is provisioned. Use it when you forget the passphrase.
+
+Once you are back in, you can set a new passphrase. You can also generate a replacement Recovery Kit from your account's vault settings. The old recovery code stops working after replacement.
+
+<Warning>Tuck cannot recover a forgotten vault passphrase without a valid Recovery Kit or another already-unlocked device that can help you rotate access.</Warning>

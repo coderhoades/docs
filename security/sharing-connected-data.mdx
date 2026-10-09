@@ -1,0 +1,35 @@
+---
+title: "Sharing and connected-data privacy"
+sidebarTitle: "Sharing & connections"
+description: "Know when data intentionally leaves the encrypted vault boundary."
+---
+
+Some Tuck features only work because you explicitly ask Tuck to exchange information with another system.
+
+## Shared thoughts
+
+A shared link is a plaintext snapshot you chose to publish. The recipient does not need your vault key to read it.
+
+## Calendar and mail connections
+
+When you connect a calendar or mailbox, Tuck fetches information on your behalf so it can attach meeting and message context to your day.
+
+Tuck's design keeps pulled mail as context rather than automatically saving every message as a thought.
+
+## Email and SMS ingest
+
+Inbound messages arrive at Tuck before an unlocked device can encrypt them. After a device pulls and acknowledges the item, the ingest service deletes the full inbound body, keeping only the minimum reminder fields when a scheduled reply is required.
+
+<Tip>Use share links, connected accounts, and ingest when the convenience is worth the intentional boundary crossing. The rest of your vault stays encrypted.</Tip>
+
+## Address books
+
+CardDAV credentials are stored encrypted in your vault. When you sync, your unlocked device sends the credentials to Tuck's server so it can fetch your address book over HTTPS. The server handles the credentials and returned contact data during that request. This connection is not end-to-end encrypted between your address-book provider and your vault.
+
+## Pocket recordings
+
+Pocket summaries and transcripts can wait on Tuck's capture service before an unlocked device encrypts them into your vault. Tuck deletes the queued payload after the device acknowledges it. Unclaimed payloads expire after 30 days.
+
+Your Pocket API key is stored encrypted in the vault. Tuck's server handles it when the client makes Pocket API requests, including connection checks and imports. The webhook signing secret is stored server-side so incoming deliveries can be verified while your vault is locked.
+
+Choosing a shared destination brain makes imported thoughts available to that brain's members. See [Connect Pocket](/capture/pocket).

@@ -1,0 +1,21 @@
+---
+title: "How Tuck protects your vault"
+sidebarTitle: "Security overview"
+description: "Understand what Tuck encrypts and which data must remain available to the service."
+---
+
+Encryption is part of Tuck's default design, not an optional mode.
+
+Your vault uses a random 256-bit data-encryption key. Tuck uses that key to encrypt the content that should stay private, including thought titles and bodies, tag names, attachment bytes, and todo titles.
+
+Your passphrase does not encrypt every thought directly. It protects the vault key that does.
+
+## What stays readable to the service
+
+Some metadata must remain available so Tuck can perform work while no device is unlocked. Examples include reminder timing, reminder destination, some dates and IDs, account information, and the plaintext snapshot of a thought you explicitly share.
+
+## What Tuck does not need for product telemetry
+
+Product telemetry is designed around counts and mediums rather than thought bodies.
+
+<Info>For implementation details, see the Encryption model and Architecture pages in Reference.</Info>

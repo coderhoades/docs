@@ -1,0 +1,170 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "Tuck",
+  "theme": "almond",
+  "colors": {
+    "primary": "#173e32",
+    "light": "#ce734f",
+    "dark": "#faf9ea"
+  },
+  "favicon": "https://media.brand.dev/aac8d953-9686-41f1-be58-d67fa0d71587.png",
+  "logo": {
+    "light": "/images/tuck-logo-light.png",
+    "dark": "/images/tuck-logo-dark.png"
+  },
+  "font": {
+    "headings": { "family": "Manrope" },
+    "body": { "family": "Manrope" }
+  },
+  "navbar": {
+    "primary": {
+      "type": "button",
+      "label": "Open Tuck",
+      "href": "https://tuckthis.app"
+    }
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Get Started",
+        "groups": [
+          {
+            "group": "Start with Tuck",
+            "pages": [
+              "get-started/welcome",
+              "get-started/setup",
+              "get-started/first-10-minutes"
+            ]
+          },
+          {
+            "group": "Learn the basics",
+            "pages": [
+              "get-started/core-concepts",
+              "get-started/best-practices"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Use Tuck",
+        "groups": [
+          {
+            "group": "Capture and organize",
+            "pages": [
+              "use/capture",
+              "use/brains-tags",
+              "use/views-search",
+              "use/attachments-audio"
+            ]
+          },
+          {
+            "group": "Plan and remember",
+            "pages": [
+              "use/calendar-mail",
+              "use/habits",
+              "use/todos"
+            ]
+          },
+          {
+            "group": "People and context",
+            "pages": [
+              "use/people",
+              "use/share"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Apps & Capture",
+        "groups": [
+          {
+            "group": "Tuck apps",
+            "pages": [
+              "apps/web",
+              "apps/iphone-ipad",
+              "apps/watch-widgets",
+              "apps/browser-extension"
+            ]
+          },
+          {
+            "group": "Bring things into Tuck",
+            "pages": [
+              "capture/email",
+              "capture/sms",
+              "capture/sms-countries",
+              "capture/pocket"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Security & Privacy",
+        "groups": [
+          {
+            "group": "Your vault",
+            "pages": [
+              "security/overview",
+              "security/passphrase-recovery",
+              "security/lock-signout"
+            ]
+          },
+          {
+            "group": "Data and sharing",
+            "pages": [
+              "security/sync",
+              "security/sharing-connected-data"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Reference",
+        "groups": [
+          {
+            "group": "Product reference",
+            "pages": [
+              "reference/plans",
+              "reference/capture-syntax"
+            ]
+          },
+          {
+            "group": "For developers",
+            "pages": [
+              "developers/ingest-api",
+              "developers/architecture",
+              "developers/encryption-model"
+            ]
+          },
+          {
+            "group": "Writing Tuck docs",
+            "pages": [
+              "reference/style-guide"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Release Notes",
+        "groups": [
+          {
+            "group": "Product updates",
+            "pages": [
+              "release-notes/index"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Get Support",
+        "groups": [
+          {
+            "group": "Help & community",
+            "pages": [
+              "support/index"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

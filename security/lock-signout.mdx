@@ -1,0 +1,29 @@
+---
+title: "Locking, signing out, and device access"
+sidebarTitle: "Lock & sign out"
+description: "Understand the difference between closing Tuck, locking the vault, and signing out."
+---
+
+These actions are intentionally different.
+
+## Close the tab or browser
+
+On the web, an unlocked vault can remain available on that device across refreshes and browser restarts. This is what makes Tuck practical for daily capture.
+
+## Lock Tuck
+
+Locking removes the locally stored unlocked vault key. Your encrypted data remains on the device and in sync, but Tuck needs the passphrase, Recovery Kit, or an allowed device-unlock method before it can read it again.
+
+## Sign out
+
+Signing out ends the account session and also removes the local unlocked vault key.
+
+## iPhone and iPad
+
+The native alpha app can use Face ID and Secure Enclave-backed protection to make repeat unlocks faster without storing the raw vault key in UserDefaults.
+
+## Delete your account
+
+In **Settings → Account**, choose **Delete account** and read the confirmation carefully. Tuck marks the account deleted immediately, stops renewal charges, and schedules active-system data for deletion after 30 days. Those 30 days are not a restore window.
+
+For earlier erasure, contact [**privacy@tuckthis.app**](mailto:privacy@tuckthis.app). This action is different from locking the vault or signing out.

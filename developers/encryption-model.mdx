@@ -1,0 +1,25 @@
+---
+title: "Encryption model"
+sidebarTitle: "Encryption model"
+description: "Technical details for how Tuck seals and unwraps vault data."
+---
+
+Tuck uses a random 256-bit data-encryption key (DEK) for the vault.
+
+## Vault data
+
+Titles, bodies, tag names, attachment bytes, and todo titles are encrypted with AES-256-GCM.
+
+## Passphrase wrap
+
+The vault passphrase is stretched with PBKDF2-HMAC-SHA256 using 600,000 iterations and a 16-byte salt, then used to wrap the DEK.
+
+## Recovery wrap
+
+The Recovery Kit independently wraps the same DEK so recovery does not require the normal passphrase.
+
+## Client compatibility
+
+The web and native Apple clients must use the same wrap format and snapshot shape. The iOS implementation intentionally follows the web vault contract instead of inventing a second crypto format.
+
+<Warning>Changes to the vault format are cross-platform compatibility changes. Treat them like a protocol migration, not a local implementation detail.</Warning>

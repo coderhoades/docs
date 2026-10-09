@@ -1,0 +1,25 @@
+---
+title: "Tuck architecture"
+sidebarTitle: "Architecture"
+description: "Understand the separation between the encrypted client and hosted services."
+---
+
+Tuck separates the capture client from the services that make accounts, ingest, reminders, billing, and feature access work.
+
+| Service | Primary responsibility |
+| --- | --- |
+| Web client | Capture, vault, local data, editing |
+| Identity | Accounts, sessions, encrypted snapshots, share snapshots, feature evaluation by plan |
+| Ingest | Email, SMS, API capture, Pocket deliveries, and reminders |
+| Billing | Trials and paid entitlements |
+| Backoffice | Human operations for accounts and usage |
+
+There is intentionally no single server-side service that needs unrestricted access to plaintext vault content.
+
+## Feature evaluation and product events
+
+Identity now serves feature evaluation. The client no longer sends product events to the retired telemetry intake. This does not mean Tuck has no operational logs or account metadata.
+
+## Design principle
+
+Keep adapters at the edge. Email delivery, SMS delivery, billing, and cloud hosting can change without redefining the vault format.

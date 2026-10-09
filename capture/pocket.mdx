@@ -1,0 +1,48 @@
+---
+title: "Connect Pocket recordings"
+sidebarTitle: "Pocket"
+description: "Bring recording summaries, transcripts, and action items into Tuck."
+---
+
+Pocket is available in the web app on Pro, Tucker, and Founder.
+
+## Connect Pocket
+
+1. Unlock Tuck and open **Settings → Integrations → Pocket**.
+2. Enter your Pocket API key and choose **Check and save**.
+3. Choose the destination brain.
+4. Copy the webhook URL shown in Tuck and add it as a personal webhook in Pocket.
+5. Copy Pocket's signing secret into **Signing secret** in Tuck and choose **Save secret**.
+
+New recordings are checked while this device is unlocked. Connecting does not automatically import your history.
+
+## Choose what comes in
+
+Finished summaries become thoughts and transcripts arrive as attachments. Action items become proposed todos by default. You can turn todo syncing off or choose **Accept them as todos**.
+
+Audio stays linked to the recording in Pocket by default. If you turn on the audio option, Tuck can attach files under 8 MB. Larger recordings stay linked.
+
+Tags are attached only when Tuck already has a tag with the same name. A shared destination brain makes imported thoughts readable by its members.
+
+## Import older recordings
+
+Under **Import recent**, choose the last 7, 30, or 90 days, or all recordings, then choose **Import recent**.
+
+Pocket filters this window by upload date in UTC. Tuck dates each thought to when the conversation happened. Only recordings that already have a summary are imported.
+
+If Pocket rate limits the import, run it again to resume. Already imported recordings are tracked to avoid creating another copy.
+
+## Fix common surprises
+
+- **No new thought yet:** unlock Tuck and check the connection and signing secret.
+- **A recording expired before unlock:** use **Import recent** to fetch it again.
+- **Pocket changed a recording you edited:** Tuck keeps your copy and shows a conflict notice.
+- **A summary contains chart code or color tags:** new imports clean up supported Pocket formatting. If you edited an imported thought, Tuck keeps your copy when a later Pocket update conflicts with it.
+
+Disconnecting removes the connection but keeps thoughts you already imported.
+
+## Privacy
+
+Summaries and transcripts can wait on Tuck's capture service until an unlocked device encrypts them into the vault. The queued payload is deleted after acknowledgement and expires after 30 days if unclaimed.
+
+Your API key is encrypted in your vault, but Tuck's server handles it during Pocket API requests. The webhook signing secret is stored on the server to verify deliveries while the vault is locked. See [Sharing and connected-data privacy](/security/sharing-connected-data).

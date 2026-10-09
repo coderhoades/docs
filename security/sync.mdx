@@ -1,0 +1,22 @@
+---
+title: "How encrypted sync works"
+sidebarTitle: "Encrypted sync"
+description: "Move the vault between your devices without turning the server into a reader."
+---
+
+Tuck syncs encrypted vault data so your other signed-in devices can download it and unlock it locally.
+
+The server does not need your plaintext thought body to synchronize the encrypted record.
+
+## On a new device
+
+1. Sign in to your Tuck account.
+2. Tuck downloads the encrypted vault snapshot.
+3. Unlock it with the existing vault passphrase or Recovery Kit.
+4. The device can now read and update the same vault.
+
+Do not create a new vault just because you are on a new phone, tablet, or browser.
+
+## Attachments
+
+Attachment bytes are encrypted with the vault key as well. Sync can transfer those encrypted blobs separately from the main snapshot.
