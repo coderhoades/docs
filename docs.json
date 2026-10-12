@@ -124,7 +124,8 @@
             "group": "Product reference",
             "pages": [
               "reference/plans",
-              "reference/capture-syntax"
+              "reference/capture-syntax",
+              "reference/actionable-detection"
             ]
           },
           {
