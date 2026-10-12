@@ -97,18 +97,6 @@ For ordinary in-app captures, a wording match creates a proposed todo and the ca
 
 Inbound SMS, email, and API captures that qualify as todos are also saved as open, without that ask. Being inbound does not by itself make every capture a todo.
 
-The web capture store also creates a todo when an explicit reminder timestamp (`nudgeAt`) is supplied. Unless the capture is inbound or marked explicit, that todo is still proposed. A recognized date in the text alone is not an additional wording rule.
-
-## Implementation reference
-
-The word lists and rejection rules live in:
-
-- Web: `src/lib/suggest-todo.ts`
-- Platform: `platform/lib/suggest-todo.ts`
-- iOS: `ios/Sources/TuckCore/Capture/Actionable.swift`
-
-Capture integration lives in `src/lib/store.tsx`, `src/server/classify-ingest.ts`, `platform/lib/classify.ts`, and `ios/Sources/TuckCore/Capture/CaptureEngine.swift`. Explicit markers are parsed in `src/lib/parse-capture.ts`; the web message is selected in `src/components/capture-bar.tsx`.
-
-The implementations share the same word lists and filters. At the length limit, JavaScript counts UTF-16 code units while Swift counts characters, so some emoji or combined characters can reach the limit differently.
+The web app capture store also creates a todo when an explicit reminder timestamp is supplied. Unless the capture is inbound or marked explicit, that todo is still proposed. A recognized date in the text alone is not an additional wording rule.
 
 See [Capture thoughts](/use/capture), [Use todos](/use/todos), and [Capture syntax](/reference/capture-syntax) for the surrounding workflow.
