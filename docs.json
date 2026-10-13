@@ -92,7 +92,8 @@
               "capture/email",
               "capture/sms",
               "capture/sms-countries",
-              "capture/pocket"
+              "capture/pocket",
+              "capture/todoist"
             ]
           }
         ]
