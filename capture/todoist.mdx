@@ -1,0 +1,43 @@
+---
+title: "Connect Todoist"
+sidebarTitle: "Todoist"
+description: "Keep a Todoist project in step with todos in a Tuck brain."
+---
+
+Todoist sync is available in the web app on Pro, Tucker, and Founder. One Todoist project connects to one Tuck brain.
+
+## Connect Todoist
+
+1. Unlock Tuck and open **Settings → Integrations → Todoist**.
+2. Paste your personal Todoist API token into **API token** and choose **Check and save**.
+3. Choose the **Project** you want to sync.
+4. Under **Destination**, choose the brain where its todos should live.
+5. Review **What to send**, then choose **Sync now**.
+
+Connecting starts a sync using the initial project and destination. Check both selections after connecting. Changing the destination moves todos already synced from Todoist.
+
+If you choose a shared brain, its members can read those todos.
+
+## Choose what goes to Todoist
+
+**Send new open todos from this brain to Todoist** controls whether new todos are sent. To include older open todos, also select **Also send open todos that were already in Tuck before you connected**.
+
+Todoist parent tasks become Tuck todos. Subtasks become checklist items. Completing work on either side updates the other.
+
+Deleting a linked todo in Tuck deletes its Todoist task. Deleting the task in Todoist removes its linked Tuck todo.
+
+## Resolve a conflict
+
+If both sides change, Tuck keeps its copy until you choose. Open the Todoist settings page and select **Keep Tuck** or **Use Todoist** for each conflict.
+
+## Check or stop syncing
+
+Use **Sync now** with your vault unlocked to check for changes. The settings page shows the last sync time and any error.
+
+Choose **Disconnect** to remove the connection. This keeps todos already saved in Tuck.
+
+## Privacy
+
+Your API token is encrypted in your vault. Tuck's server handles the token and sync data while forwarding requests to Todoist. Task titles and due dates sent to Todoist leave Tuck's encrypted vault boundary.
+
+See [Sharing and connected-data privacy](/security/sharing-connected-data).
