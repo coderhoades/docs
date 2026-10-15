@@ -23,3 +23,9 @@ The Recovery Kit independently wraps the same DEK so recovery does not require t
 The web and native Apple clients must use the same wrap format and snapshot shape. The iOS implementation intentionally follows the web vault contract instead of inventing a second crypto format.
 
 <Warning>Changes to the vault format are cross-platform compatibility changes. Treat them like a protocol migration, not a local implementation detail.</Warning>
+
+## Explicit publishing
+
+Hosted MCP does not unwrap the DEK or decrypt vault records on the server. An unlocked web client publishes selected personal-brain content to separate plaintext storage. The read-only MCP tools serve that copy using a bearer token.
+
+Shape includes readable thought titles, snippets, tag/person names, dates, and linked todo details. Full text is independently enabled per brain. Token secrets are shown once and stored server-side as SHA-256 hashes. Publishing fingerprints are outside the sealed vault snapshot.

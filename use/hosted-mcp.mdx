@@ -1,0 +1,69 @@
+---
+title: "Connect an AI assistant with hosted MCP"
+sidebarTitle: "Hosted MCP"
+description: "Choose which personal brains to publish for a compatible AI assistant to read."
+---
+
+Hosted MCP is available in the web app on Pro, Tucker, and Founder. It lets a compatible AI assistant read information you explicitly publish from personal brains.
+
+MCP stands for Model Context Protocol. Tuck provides three read-only tools: list published brains, search published thoughts, and read a published thought.
+
+## Understand what you publish
+
+MCP uses a separate plaintext copy hosted by Tuck. It does not give the assistant your vault key or direct access to the encrypted vault.
+
+Publishing is off until you enable **Shape** for a personal brain. This publishes titles, short snippets, dates, tag and people names, and linked todo details from eligible thoughts in that brain. The choice applies to the brain, not individual thoughts.
+
+Snippets contain up to 240 characters of readable text. A thought without text can use an attachment filename or a label such as Photo, Audio, or File as its snippet.
+
+**Full text** is an additional choice for each published brain. Tuck stores up to 64,000 characters of each thought's text, returned in pages of up to 8,000 characters. Text beyond the stored limit is not available through MCP.
+
+The publisher does not upload attachment bytes or separate transcript attachments. Text already in a thought can still appear in its snippet or full text.
+
+**Privacy:** Tuck can read the published copy. It is also exposed if someone gains access to the relevant server data, and it may be disclosed through legal process. Your connected assistant receives information through your token and handles that information under its own policies. Publish only brains you are comfortable making available this way.
+
+Shared brains cannot be published, including brains nested inside a shared brain.
+
+## Connect your assistant
+
+1. Unlock your vault in the web app.
+2. Open **Settings → Hosted MCP**.
+3. Turn on **Shape** for each personal brain you want to publish.
+4. Enable **Full text** only for brains whose thought text you want the assistant to read.
+5. Enter a token label and choose **Create token**.
+6. Choose **Copy token** and save it securely. Tuck shows the secret only once.
+7. In your compatible MCP client, use the endpoint shown in Settings with Streamable HTTP and bearer-token authentication.
+
+The endpoint on the main Tuck site is `https://tuckthis.app/api/mcp`. The authorization header is `Authorization: Bearer <your-token>`.
+
+Use a client that supports this transport and authentication. A client requiring a different sign-in method may need an adapter or may not connect directly.
+
+Each token can read the account's published brains. Creating another token does not create a separate brain selection.
+
+## Keep the hosted copy current
+
+The unlocked web app publishes when you opt in and as the vault is loaded or synced. The assistant reads the most recently published copy, including after you lock Tuck or close your laptop.
+
+Open and unlock the web app when you need recent changes reflected. Publishing uses content fingerprints to avoid repeatedly uploading unchanged thoughts. A browser without a local publishing history compares hashes with the hosted copy first. An empty hosted brain still needs its initial content upload.
+
+This release does not add an iOS publisher. Changes made elsewhere need to reach an unlocked web client before that client can publish them.
+
+## What the tools return
+
+| Tool | What it does |
+| --- | --- |
+| `list_brains` | Lists opted-in personal brains, their thought counts, full-text setting, and update time. |
+| `search_thoughts` | Searches published thoughts, optionally within one brain. Returns at most 20 results per page, with `nextCursor` for another page. `updatedSince` filters by thought update time. |
+| `read_thought` | Reads a published thought by `thoughtId`. Returns its Shape information and, when enabled, a page of full text. |
+
+Linked todo details include proposed, open, or done status and a due date when present. Timestamps use ISO-8601 UTC. These tools cannot create or edit thoughts, complete todos, or change your account.
+
+Search matches published information only. Full-text search is available only for brains with **Full text** enabled.
+
+## Reduce or stop access
+
+- Turn off **Full text** to remove stored thought bodies while retaining Shape information, including snippets.
+- Turn off **Shape** to delete that brain's hosted copy.
+- Choose **Revoke** beside a token to prevent future access with that token.
+
+Removing access does not recall data an assistant has already received. Losing paid feature access blocks MCP serving and new publishing, but is not the same as deleting the hosted copy.

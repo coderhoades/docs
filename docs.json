@@ -69,7 +69,8 @@
             "group": "People and context",
             "pages": [
               "use/people",
-              "use/share"
+              "use/share",
+              "use/hosted-mcp"
             ]
           }
         ]
