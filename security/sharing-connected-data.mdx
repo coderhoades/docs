@@ -33,3 +33,11 @@ Pocket summaries and transcripts can wait on Tuck's capture service before an un
 Your Pocket API key is stored encrypted in the vault. Tuck's server handles it when the client makes Pocket API requests, including connection checks and imports. The webhook signing secret is stored server-side so incoming deliveries can be verified while your vault is locked.
 
 Choosing a shared destination brain makes imported thoughts available to that brain's members. See [Connect Pocket](/capture/pocket).
+
+## Hosted MCP
+
+Hosted MCP publishes a separate plaintext copy of information from personal brains you explicitly opt in. Shape includes titles, snippets, names, dates, and linked todo details. Full text is controlled separately.
+
+The unlocked web app creates and updates this copy. The MCP server reads the hosted copy without decrypting the vault or receiving its key. The copy remains readable through an authorized token while your devices are locked or offline.
+
+Tuck can read the hosted copy. Turning off Shape deletes the brain's hosted copy; revoking a token stops future access through that token. Neither action recalls information already received by an assistant. See [Hosted MCP](/use/hosted-mcp).
