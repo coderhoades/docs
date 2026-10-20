@@ -13,8 +13,12 @@
     "dark": "/images/tuck-logo-dark.png"
   },
   "font": {
-    "headings": { "family": "Manrope" },
-    "body": { "family": "Manrope" }
+    "headings": {
+      "family": "Manrope"
+    },
+    "body": {
+      "family": "Manrope"
+    }
   },
   "navbar": {
     "primary": {
@@ -135,7 +139,9 @@
             "pages": [
               "developers/ingest-api",
               "developers/architecture",
-              "developers/encryption-model"
+              "developers/encryption-model",
+              "developers/hosted-mcp-tools",
+              "developers/hosted-mcp-webhooks"
             ]
           },
           {
