@@ -41,3 +41,6 @@ Hosted MCP publishes a separate plaintext copy of information from personal brai
 The unlocked web app creates and updates this copy. The MCP server reads the hosted copy without decrypting the vault or receiving its key. The copy remains readable through an authorized token while your devices are locked or offline.
 
 Tuck can read the hosted copy. Turning off Shape deletes the brain's hosted copy; revoking a token stops future access through that token. Neither action recalls information already received by an assistant. See [Hosted MCP](/use/hosted-mcp).
+
+
+Write access is optional and controlled per token. Writable-brain selection does not narrow read access. Write commands are queued in plaintext until an unlocked device applies and encrypts them. Optional per-token webhooks send signed change identifiers without thought bodies. See [MCP webhooks](/developers/hosted-mcp-webhooks).

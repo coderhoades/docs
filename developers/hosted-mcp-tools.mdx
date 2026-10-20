@@ -1,0 +1,117 @@
+---
+title: "Hosted MCP tools and capture"
+sidebarTitle: "MCP tools"
+description: "Read published information and queue changes safely."
+---
+
+Use `https://tuckthis.app/api/mcp` with Streamable HTTP and `Authorization: Bearer <your-token>`. [Set up Hosted MCP](/use/hosted-mcp) first. Available on Pro, Tucker, and Founder.
+
+## Write lifecycle
+
+Every write takes a caller-generated `requestId`. Reuse it only when retrying that same action. Deduplication is scoped to the token, so a different token does not share its request IDs. The limit is 30 write requests per 60 seconds per token.
+
+A write queues a plaintext command. An unlocked device must apply and encrypt it before it becomes part of the vault. Keep the web app visible and unlocked and allow about 20 seconds for the processing pass, plus sync and network time. Locked devices leave writes queued without an expiry.
+
+Call `get_write` with `requestId` until it reports `sealed`, `discarded`, or `failed`. `queued` is not completion. A missing, deleted thought can produce `failed` with `reason: "thought_missing"`; that request ID stays failed. A device that has not loaded the target yet may leave the write queued. `list_pending` lists queued writes only.
+
+`create_thought` and `create_brain` return their resulting `thoughtId` or `brainId` through `get_write` after sealing; those IDs are null beforehand. Check tool errors as well as transport success.
+
+## Reading and discovery
+
+| Tool | Arguments and behavior |
+| --- | --- |
+| `whoami` | No arguments. Returns `timeZone`, `readBrains`, `writeBrains`, `canWrite`, `allowed`, and `tools`. |
+| `list_brains` | No arguments. Lists published personal brains, including empty ones. |
+| `search_thoughts` | Optional `query`, `brainId`, `limit` (up to 20), `cursor`, `updatedSince`, `todoStatus`, `dueAfter`, `dueBy`, `tag`, `person`, `datedAfter`, `datedBefore`, and `sort` (`updated`, `due`, `created`, `dated`). May include this token's queued writes with `pending: true`. |
+| `read_thought` | `thoughtId`, optional `cursor`. Returns `revision`, `bodyWithheld`, linked todos, and published text. Full text is paged at 8,000 characters, with at most 64,000 stored per thought. |
+| `list_todos` | Optional `status`, `dueAfter`, `dueBy`, `brainId`, `cursor`, `limit` (up to 50). Due order, undated last. Status is `proposed`, `open`, `done`, or `dismissed`. |
+| `list_tags`, `list_people` | No arguments. Include unused directory entries and this token's pending creations or renames. An unmaterialized name may not yet have an ID. |
+| `get_write` | `requestId`. Returns this token's write status and result. |
+| `list_pending` | Lists this token's queued writes. |
+| `list_changes` | Optional `cursor` and `limit` (up to 20). Newest changes first. Follow `nextCursor` for more. |
+
+Use the returned pagination cursor rather than constructing one. A published empty brain is valid; an unpublished brain ID is rejected without revealing whether it exists. Read access covers the account's published personal brains; write selections do not restrict reads.
+
+The change feed uses `kind` values: `create`, `edit`, `delete`, `move`, `todo_complete`, `todo_uncomplete`, `todo_proposed`, `todo_delete`, and `tag_remove`. It is distinct from [webhook events](/developers/hosted-mcp-webhooks).
+
+## Writing thoughts
+
+All rows below also require `requestId`.
+
+| Tool | Other arguments |
+| --- | --- |
+| `create_thought` | `text`; optional `brainId` and `todos` array of `{title, dueAt?, status?}`. Structured status is `open` or `proposed`, default `open`. |
+| `append_to_thought` | `thoughtId`, `text`. Does not require a revision and can append when full text is withheld. |
+| `edit_thought` | `thoughtId`, `text`, `revision`. Replaces text; obtain the current revision with `read_thought`. Stale revisions and withheld bodies are rejected. |
+| `move_thought` | `thoughtId`, `toBrainId`. Both brains must be published and writable by this token. |
+| `delete_thought` | `thoughtId`. Deletes the targeted thought after sealing. |
+
+Append, replace, and delete thought calls, plus existing-thought todo calls, also accept an optional `brainId` guard. When supplied, it must match the thought’s brain.
+
+When `brainId` is omitted on creation, the default Inbox must be published and writable. A `/brain` token inside text does not reroute the request. For replacement, read all available text pages before composing the new text; appending avoids replacing text the assistant has not seen.
+
+## Writing todos
+
+These tools require `requestId` and `thoughtId`. Existing-todo tools also require the stable `todoId` returned by reads.
+
+| Tool | Behavior and additional arguments |
+| --- | --- |
+| `create_todo` | Requires `title`; optional `dueAt`, `status` (`open` or `proposed`). Default is `open`. |
+| `edit_todo` | Optional `nextTitle`, `dueAt`. Omit `dueAt` to preserve it; use null to clear it. |
+| `complete_todo` | Marks the todo done. |
+| `uncomplete_todo` | Reopens a completed todo. |
+| `accept_todo` | Accepts a proposed todo as open. |
+| `dismiss_todo` | Marks an open or proposed todo dismissed. It remains available through MCP but is hidden in the app. |
+| `delete_todo` | Removes the todo while keeping its thought. |
+
+Repeat schedules are readable through `recurrence`, `repeat`, and `repeatLabel`. `repeat` can describe daily, weekly, monthly, weekdays (0 is Sunday), intervals, times-per-period quotas, or custom schedules. A quota does not roll a due date. These write tools do not expose a repeat-rule argument.
+
+## Tags, people, and brains
+
+All tools require `requestId` in addition to these arguments.
+
+| Tool | Arguments and behavior |
+| --- | --- |
+| `add_tag`, `remove_tag` | `thoughtId`, `tag`. Change the thought's tag association. |
+| `create_tag` | `tag`. Can create an unused tag. |
+| `rename_tag` | `tag`, `nextTag`. Keeps its identity and updates mentions, including when the tag is unused. |
+| `create_person` | `name`. Can create a person before a mention exists. |
+| `rename_person` | `name`, `nextName`. Renames the person and updates mentions. |
+| `create_brain` | `name`. Creates a personal brain, enables Shape, and grants the creating token write access after sealing. |
+| `rename_brain` | `brainId`, `name`. Renames a writable personal brain. |
+| `archive_brain` | `brainId`. Archives it in the vault and turns off hosted publication. Does not hard-delete it. |
+
+## Capture text without surprises
+
+Explicit todo grammar such as `* `, `todo:`, and `/todo` creates **open** todos. App-inferred actionable suggestions are **proposed**. Plain prose passed to `create_thought` is not automatically a todo. Structured `todos` default to open unless you explicitly set proposed.
+
+Capture supports `#tags`, `@people`, `!YYYY-MM-DD`, and repeat markers such as `~daily`, `~weekly`, and `~monthly`. MCP append and edit also process explicit star-line todo grammar.
+
+When grammar and a structured todo have the same title (ignoring case), Tuck merges them into one todo. Supplied structured due dates and status take precedence.
+
+A grammar `!date` normally sets the thought's `datedAt` too. There is an exception in Web 2026.10.20.4: if the matching structured todo supplies a **different calendar day**, Tuck clears the conflicting thought date. It does not move that structured date onto the thought.
+
+For example, pass these arguments to `create_thought` with a writable brain ID:
+
+```json
+{
+  "requestId": "beta-grocery-001",
+  "brainId": "YOUR_WRITABLE_BRAIN_ID",
+  "text": "* Buy plums !2026-10-22",
+  "todos": [
+    {"title": "Buy plums", "dueAt": "2026-10-23", "status": "proposed"}
+  ]
+}
+```
+
+After sealing, this produces one proposed todo due October 23 and no thought date. Without the structured override, the grammar produces an open todo due October 22 and dates the thought October 22.
+
+## Dates and time zones
+
+Write `dueAt` accepts a calendar date (`YYYY-MM-DD`), an ISO timestamp with an offset, or Unix milliseconds. For edits, null clears the due date.
+
+A date-only due is saved at the account's reminder hour. Reads return `dateOnly: true`, `dueDate` as its calendar day, and `dueAt` as the stored ISO UTC instant. A deliberately chosen time, including noon, has `dateOnly: false`.
+
+Date-only `dueBy` and `dueAfter` filters use the account time zone. `whoami.timeZone` is null when unset, in which case filtering falls back to UTC. Thought-date filters `datedAfter` and `datedBefore` use UTC day boundaries for date strings. Use offset-bearing timestamps when you mean a precise instant.
+
+Your account time zone is initially seeded from a device and can be changed in **Account** settings. Traveling does not silently reset it.

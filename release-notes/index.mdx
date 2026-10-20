@@ -7,6 +7,48 @@ rss: true
 
 Follow what is changing across Tuck. Use the filters to focus on the client you use or to follow alpha and beta work for clients that are still on the way.
 
+<Update label="October 20, 2026" tags={["Web"]} description="2026.10.20.4: Tuck can lend a hand now">
+
+## Tuck can lend a hand now
+
+**Web app · 2026.10.20.4**
+
+Your assistant has been reading along. Now, with your permission, it can help with the doing.
+
+On **Pro, Tucker, and Founder**, enable **Write** for a token in **Settings → Hosted MCP** and choose its writable personal brains. Capture a thought, add to one, move it, manage its todos, or tidy up tags and people. New personal brains are on the menu too.
+
+### Queued first, tucked away second
+
+Writes wait for an unlocked device to seal them into your encrypted vault. Keep Tuck open in a visible web tab and allow about **20 seconds after unlocking**, plus sync time. A queued result means “waiting to be tucked away,” not “lost in the cushions.” Your assistant can check the request's status instead of sending it again.
+
+MCP still uses the separate readable copy you choose to publish. It does not receive your vault key or direct access to encrypted vault records. Write commands wait in a plaintext queue until your unlocked device applies and encrypts them. Tokens start read-only, and writable-brain choices do not narrow their access to the account's published information.
+
+### Better context for the next step
+
+Assistants can list todos, tags, and people, check their permissions, and follow recent changes. Todos now carry their repeat rules as well as their status and due dates. Date-only due searches follow your account time zone, which you can review in Account settings.
+
+Capture grammar and structured todos work together without doubling up matching titles. Explicit todo lines are open; inferred suggestions are proposed. The [MCP tool reference](/developers/hosted-mcp-tools) explains dates, editing, and the full set of actions.
+
+### A little tap on the shoulder
+
+Each token can have its own signed webhook destination for change notices. Notices contain event names, identifiers, and a time, without thought text. The [webhook guide](/developers/hosted-mcp-webhooks) covers all eight events, millisecond timestamps, and signature verification. If you tried the earlier account-level webhook setting, save your destination on a token now.
+
+### Room for real-life habits
+
+Log a habit completion when it happens, even outside its scheduled day or before its reminder. Rename habits, remove an older completion, and mention a new person in a completion note to add them to People. Habit reminders can use your account's configured outbound reminder channel.
+
+### Smaller fixes, fewer loose ends
+
+- Archiving a thought dismisses its open and proposed todos and cancels their pending reminders. Restoring the thought does not reopen them automatically.
+- A late sync no longer sends the same unchanged SMS reminder again.
+- Shared brains unlock more reliably and avoid repeated uploads that do not change their contents.
+- You can delete a single selected person. Thought-linked todos have fewer redundant labels on the thought page.
+- Sync avoids unnecessary attachment reads and copying, keeping ordinary saves lighter.
+
+[Set up Hosted MCP](/use/hosted-mcp) and give your assistant something small to help with first. A plum-related errand is entirely acceptable.
+
+</Update>
+
 <Update label="October 15, 2026" tags={["Web"]} description="2026.10.14.1: Tuck now speaks MCP!">
   ## Tuck now speaks MCP!
 
@@ -220,3 +262,4 @@ We may publish notes here before a client is generally available. When an update
 <Info>
   Want every update? This page has an RSS feed at `/release-notes/rss.xml`.
 </Info>
+

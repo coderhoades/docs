@@ -1,0 +1,78 @@
+---
+title: "Hosted MCP webhooks"
+sidebarTitle: "MCP webhooks"
+description: "Receive and verify signed notices when published information changes."
+---
+
+Webhooks tell your integration that something changed. They do not contain thought text and do not give direct access to the encrypted vault. Read the published information through MCP when needed.
+
+## Set up a destination
+
+In **Settings → Hosted MCP**, save an HTTPS webhook URL on a token's row. Each token has its own destination and webhook signing secret. Use the displayed signing secret for verification, not the MCP bearer token.
+
+Saving a replacement URL keeps that token's signing secret. Clearing its URL or revoking the token stops undelivered notices. Earlier account-level webhook URLs are no longer used; save the destination on a token.
+
+Account change notices fan out to every configured token destination. They are not filtered by the token's writable-brain selection. Write permissions limit actions, not the account's published read surface.
+
+## Event names
+
+There are eight possible values of `event`.
+
+| Event | When it fires |
+| --- | --- |
+| `create` | A newly captured thought is sealed and acknowledged. Do not expect this for every existing thought when first publishing a brain. |
+| `edit` | The hosted thought's title, snippet, body, date, or people change. A timestamp-only change is not enough. |
+| `tag` | Tags change without one of the thought-content changes that produces `edit`. Todo notices may still accompany it. |
+| `move` | The hosted thought changes brains. Includes destination `brainId` and `fromBrainId`. This publication emits only `move` for that thought. |
+| `delete` | The thought leaves the hosted copy. This is not proof of permanent deletion from the encrypted vault. |
+| `todo_complete` | An existing todo changes from a non-done status to done. |
+| `todo_uncomplete` | An existing todo leaves done, including a transition to proposed. |
+| `todo_proposed` | A new proposed todo is published, or an existing non-done todo becomes proposed. A done-to-proposed transition emits `todo_uncomplete` instead. |
+
+Changes become visible to these notices through sealing and publication. A queued MCP write alone does not mean the change has reached the hosted copy.
+
+There is no dedicated webhook event for a new open todo, a todo-only title or due-date edit, accepting proposed as open, dismissing open or proposed, deleting only a todo, or renaming an unused directory entry. Another qualifying thought change can still produce its own notice. The MCP `list_changes` feed is separate and has additional kinds such as `todo_delete` and `tag_remove`.
+
+## Payload and headers
+
+Payloads contain `event` and `at` (an ISO-8601 UTC event time), plus applicable identifiers such as `thoughtId`, `brainId`, `fromBrainId`, `todoId`, `ingestId`, or `writeId`. Do not require all identifiers on every event. There is no guaranteed unique event ID.
+
+An illustrative move payload:
+
+```json
+{
+  "event": "move",
+  "at": "2026-10-20T15:30:00.000Z",
+  "thoughtId": "thought-example",
+  "brainId": "brain-destination",
+  "fromBrainId": "brain-source"
+}
+```
+
+Requests use `Content-Type: application/json` and these headers:
+
+- `X-Tuck-Timestamp`: delivery timestamp as Unix **milliseconds**, not seconds.
+- `X-Tuck-Signature`: `sha256=` followed by a hexadecimal HMAC-SHA256 signature.
+
+Compute the HMAC using the token's webhook signing secret and this exact message:
+
+```text
+<literal X-Tuck-Timestamp header>.<raw request body>
+```
+
+Preserve the raw body bytes before parsing JSON. Re-serializing JSON can change the signed bytes. Compare signatures in constant time and enforce a freshness window appropriate to your receiver, comparing the header with a clock measured in milliseconds. `at` is the event time; it is not the signature timestamp.
+
+## Delivery and retries
+
+Delivery is asynchronous and does not block sealing. A receiver must return a 2xx response within the two-second request timeout. Redirects are rejected. Tuck makes at most three attempts, with retries scheduled after roughly one second and then five seconds; actual dispatch may be later.
+
+Handle duplicate deliveries safely. Delivery is not an exactly-once contract, and retries are not indefinite. Persist the notice quickly, respond, then do slower work. Use MCP reads or the change feed to reconcile state when a notice is missed.
+
+## Test your webhook connection
+
+1. Publish a personal brain, enable writes for a token, and save its webhook destination.
+2. Queue a uniquely identified `create_thought` request.
+3. Keep Tuck visible and unlocked. Allow about 20 seconds for processing, plus sync time.
+4. Confirm `get_write` becomes `sealed`, the thought appears, and the receiver gets a signed `create` notice.
+5. Verify the signature using the raw payload and millisecond timestamp.
+6. Test edits, tag-only edits, moves, removals, and the three todo transitions separately. A move should not also produce an edit for that same publication.
